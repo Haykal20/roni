@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form Data Pribadi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .alert {
+      font-size: 0.95rem;
+      padding: 10px 16px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+  <div class="col-md-6 mx-auto bg-white p-4 rounded shadow">
+    <h4 class="mb-4">Data Pribadi</h4>
+
+    <!-- Notifikasi -->
+    <div id="alertBox"></div>
+
+    <form id="formPribadi" onsubmit="return lanjutkan(event)">
+      <div class="mb-3">
+        <label class="form-label">Umur</label>
+        <select class="form-select" id="umur" required>
+          <option value="" disabled selected>Pilih umur</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20+</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Tanggal Lahir</label>
+        <input type="date" class="form-control" id="tglLahir" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label d-block">Jenis Kelamin</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" value="Laki-laki" id="lk">
+          <label class="form-check-label" for="lk">Laki-laki</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" value="Perempuan" id="pr">
+          <label class="form-check-label" for="pr">Perempuan</label>
+        </div>
+      </div>
+
+      <button class="btn btn-success w-100">Lanjutkan</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function showAlert(message, type = "success") {
+    const alertBox = document.getElementById("alertBox");
+    alertBox.innerHTML = `
+      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    `;
+  }
+
+  function lanjutkan(e) {
+    e.preventDefault();
+
+    const umur = document.getElementById("umur").value;
+    const tglLahir = document.getElementById("tglLahir").value;
+    const gender = document.querySelector('input[name="gender"]:checked');
+
+    if (!umur || !tglLahir || !gender) {
+      showAlert("❌ Semua data harus diisi dengan lengkap!", "danger");
+      return false;
+    }
+
+    showAlert("✅ Data berhasil disimpan! Mengarahkan ke langkah berikutnya...", "success");
+
+    setTimeout(() => {
+      window.location.href = "form2.html";
+    }, 2000);
+
+    return false;
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
